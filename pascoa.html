@@ -355,14 +355,30 @@
 
         .info-panel span { display: flex; align-items: center; gap: 12px; }
 
-        /* Remove qualquer rodapé que possa aparecer */
-        footer, .footer, .copyright, .rodape, [class*="footer"], [class*="rodape"] {
+        /* Remove APENAS o aviso do Windows e elementos do Streamlit, NÃO as imagens */
+        .stApp, .stApp * {
+            background-color: transparent !important;
+        }
+        
+        /* Esconde elementos específicos do Streamlit que causam o aviso */
+        [data-testid="stNotification"], 
+        [data-testid="stBottom"], 
+        [data-testid="stDecoration"],
+        .stAlert,
+        .st-at,
+        .st-bb,
+        .st-be {
             display: none !important;
         }
 
-        /* Garante que não sobre espaço branco */
-        body::after {
+        /* Remove qualquer footer criado pelo Streamlit, mas preserva o conteúdo */
+        footer {
             display: none !important;
+        }
+        
+        /* Remove o aviso de ativar Windows que aparece localmente */
+        body:has(div:contains("Ativar Windows")) {
+            overflow: hidden;
         }
     </style>
 </head>
@@ -392,7 +408,7 @@
         <!-- Intenso Brigadeiro -->
         <div class="product-card">
             <div class="product-image-container">
-                <img src="brigadeiro.png.jpeg" alt="Intenso Brigadeiro">
+                <img src="static/brigadeiro.png.jpeg" alt="Intenso Brigadeiro">
                 <span class="image-caption">🍫 Intenso Brigadeiro</span>
             </div>
             <div class="card-content">
@@ -407,7 +423,7 @@
         <!-- Supremo Avelã -->
         <div class="product-card">
             <div class="product-image-container">
-                <img src="avela.png.jpeg" alt="Supremo Avelã">
+                <img src="static/avela.png.jpeg" alt="Supremo Avelã">
                 <span class="image-caption">🌰 Supremo Avelã</span>
             </div>
             <div class="card-content">
@@ -422,7 +438,7 @@
         <!-- Sensação -->
         <div class="product-card">
             <div class="product-image-container">
-                <img src="sensacao.png.jpeg" alt="Sensação">
+                <img src="static/sensacao.png.jpeg" alt="Sensação">
                 <span class="image-caption">🍓 Sensação</span>
             </div>
             <div class="card-content">
@@ -437,7 +453,7 @@
         <!-- Paraíso Tropical -->
         <div class="product-card">
             <div class="product-image-container">
-                <img src="maracuja.png.jpeg" alt="Paraíso Tropical">
+                <img src="static/maracuja.png.jpeg" alt="Paraíso Tropical">
                 <span class="image-caption">🌺 Paraíso Tropical</span>
             </div>
             <div class="card-content">
@@ -452,7 +468,7 @@
         <!-- Prestígio Intenso -->
         <div class="product-card">
             <div class="product-image-container">
-                <img src="prestigio.png.jpeg" alt="Prestígio Intenso">
+                <img src="static/prestigio.png.jpeg" alt="Prestígio Intenso">
                 <span class="image-caption">🥥 Prestígio Intenso</span>
             </div>
             <div class="card-content">
@@ -504,7 +520,7 @@
         <!-- Ovo Trufado -->
         <div class="product-card">
             <div class="product-image-container" style="height:200px;">
-                <img src="trufado.png.jpeg" alt="Ovo Trufado">
+                <img src="static/trufado.png.jpeg" alt="Ovo Trufado">
                 <span class="image-caption">🍬 Ovo Trufado</span>
             </div>
             <div class="card-content">
@@ -518,7 +534,7 @@
         <!-- Tablet Recheado -->
         <div class="product-card">
             <div class="product-image-container" style="height:200px;">
-                <img src="tablet.png.jpeg" alt="Tablet Recheado">
+                <img src="static/tablet.png.jpeg" alt="Tablet Recheado">
                 <span class="image-caption">📦 Tablet Recheado</span>
             </div>
             <div class="card-content">
@@ -538,8 +554,6 @@
         <span>⏳ Consumo: até 3 dias</span>
         <span>📞 19 99248-3488</span>
     </div>
-
-    <!-- NÃO TEM MAIS FOOTER - REMOVIDO -->
 </div>
 
 <script>
