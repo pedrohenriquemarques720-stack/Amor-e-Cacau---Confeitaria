@@ -2,9 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=yes">
     <title>Amor Cacau · Ovos de Páscoa Gourmet</title>
     <style>
+        /* ZOOM FIXO EM 75% */
         * {
             margin: 0;
             padding: 0;
@@ -22,6 +23,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            zoom: 0.75;
+            -moz-transform: scale(0.75);
+            -moz-transform-origin: 0 0;
         }
 
         .container {
@@ -388,13 +392,14 @@
         <div class="product-card">
             <div class="product-image-container">
                 <img src="brigadeiro.png.jpeg" alt="Intenso Brigadeiro">
+                <span class="image-caption">🍫 Intenso Brigadeiro</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Intenso Brigadeiro</div>
                 <div class="product-weight">500g aprox.</div>
                 <div class="product-price">R$74,90</div>
                 <div class="product-desc">Casca meio amargo, recheio de brigadeiro cremoso e granulado</div>
-                <button class="btn-add add-simples" data-produto='{"nome":"Intenso Brigadeiro","preco":74.90,"peso":"500g"}'>➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Intenso Brigadeiro&quot;,&quot;preco&quot;:74.90,&quot;peso&quot;:&quot;500g&quot;}">➕ Adicionar</button>
             </div>
         </div>
 
@@ -402,13 +407,14 @@
         <div class="product-card">
             <div class="product-image-container">
                 <img src="avela.png.jpeg" alt="Supremo Avelã">
+                <span class="image-caption">🌰 Supremo Avelã</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Supremo Avelã</div>
                 <div class="product-weight">400g aprox.</div>
                 <div class="product-price">R$94,90</div>
                 <div class="product-desc">Chocolate ao leite, brigadeiro cremoso, creme de avelã e crocância</div>
-                <button class="btn-add add-simples" data-produto='{"nome":"Supremo Avelã","preco":94.90,"peso":"400g"}'>➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Supremo Avelã&quot;,&quot;preco&quot;:94.90,&quot;peso&quot;:&quot;400g&quot;}">➕ Adicionar</button>
             </div>
         </div>
 
@@ -416,13 +422,14 @@
         <div class="product-card">
             <div class="product-image-container">
                 <img src="sensacao.png.jpeg" alt="Sensação">
+                <span class="image-caption">🍓 Sensação</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Sensação</div>
                 <div class="product-weight">500g aprox.</div>
                 <div class="product-price">R$94,90</div>
                 <div class="product-desc">Casca meio amargo, brigadeiro e geleia artesanal de morango</div>
-                <button class="btn-add add-simples" data-produto='{"nome":"Sensação","preco":94.90,"peso":"500g"}'>➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Sensação&quot;,&quot;preco&quot;:94.90,&quot;peso&quot;:&quot;500g&quot;}">➕ Adicionar</button>
             </div>
         </div>
 
@@ -430,13 +437,14 @@
         <div class="product-card">
             <div class="product-image-container">
                 <img src="maracuja.png.jpeg" alt="Paraíso Tropical">
+                <span class="image-caption">🌺 Paraíso Tropical</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Paraíso Tropical</div>
                 <div class="product-weight">350g aprox.</div>
                 <div class="product-price">R$74,90</div>
                 <div class="product-desc">Casca ao leite, brigadeiro de maracujá, cobertura de maracujá</div>
-                <button class="btn-add add-simples" data-produto='{"nome":"Paraíso Tropical","preco":74.90,"peso":"350g"}'>➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Paraíso Tropical&quot;,&quot;preco&quot;:74.90,&quot;peso&quot;:&quot;350g&quot;}">➕ Adicionar</button>
             </div>
         </div>
 
@@ -444,13 +452,14 @@
         <div class="product-card">
             <div class="product-image-container">
                 <img src="prestigio.png.jpeg" alt="Prestígio Intenso">
+                <span class="image-caption">🥥 Prestígio Intenso</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Prestígio Intenso</div>
                 <div class="product-weight">350g aprox.</div>
                 <div class="product-price">R$74,90</div>
                 <div class="product-desc">Casca meio amargo com recheio cremoso de coco</div>
-                <button class="btn-add add-simples" data-produto='{"nome":"Prestígio Intenso","preco":74.90,"peso":"350g"}'>➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Prestígio Intenso&quot;,&quot;preco&quot;:74.90,&quot;peso&quot;:&quot;350g&quot;}">➕ Adicionar</button>
             </div>
         </div>
     </div>
@@ -495,12 +504,13 @@
         <div class="product-card">
             <div class="product-image-container" style="height:200px;">
                 <img src="trufado.png.jpeg" alt="Ovo Trufado">
+                <span class="image-caption">🍬 Ovo Trufado</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Ovo Trufado</div>
                 <div class="product-price">R$69,90</div>
                 <div class="product-desc">350g · Cascas: ao leite/meio amargo · Recheios: brigadeiro, prestígio, maracujá, sensação</div>
-                <button class="btn-add add-simples" data-produto='{"nome":"Ovo Trufado","preco":69.90,"peso":"350g"}'>➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Ovo Trufado&quot;,&quot;preco&quot;:69.90,&quot;peso&quot;:&quot;350g&quot;}">➕ Adicionar</button>
             </div>
         </div>
 
@@ -508,12 +518,13 @@
         <div class="product-card">
             <div class="product-image-container" style="height:200px;">
                 <img src="tablet.png.jpeg" alt="Tablet Recheado">
+                <span class="image-caption">📦 Tablet Recheado</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Tablet Recheado</div>
                 <div class="product-price">R$34,90</div>
                 <div class="product-desc">Chocolate ao leite · Recheios: brigadeiro, beijinho, sensação, maracujá</div>
-                <button class="btn-add add-simples" data-produto='{"nome":"Tablet Recheado","preco":34.90,"peso":"160g"}'>➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Tablet Recheado&quot;,&quot;preco&quot;:34.90,&quot;peso&quot;:&quot;160g&quot;}">➕ Adicionar</button>
             </div>
         </div>
     </div>
