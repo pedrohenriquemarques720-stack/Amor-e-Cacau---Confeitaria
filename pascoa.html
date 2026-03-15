@@ -355,13 +355,14 @@
 
         .info-panel span { display: flex; align-items: center; gap: 12px; }
 
-        .footer {
-            text-align: center;
-            margin: 2.5rem 0 0.5rem;
-            color: #825e3c;
-            font-size: 1.4rem;
-            border-top: 2px dashed #b98f63;
-            padding-top: 1.8rem;
+        /* Remove qualquer rodapé que possa aparecer */
+        footer, .footer, .copyright, .rodape, [class*="footer"], [class*="rodape"] {
+            display: none !important;
+        }
+
+        /* Garante que não sobre espaço branco */
+        body::after {
+            display: none !important;
         }
     </style>
 </head>
@@ -538,9 +539,7 @@
         <span>📞 19 99248-3488</span>
     </div>
 
-    <div class="footer">
-        ✨ fabricação artesanal · amor em cada detalhe · Páscoa Amor Cacau ✨
-    </div>
+    <!-- NÃO TEM MAIS FOOTER - REMOVIDO -->
 </div>
 
 <script>
