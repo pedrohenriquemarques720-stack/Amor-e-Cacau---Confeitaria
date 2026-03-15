@@ -21,46 +21,53 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Função para ler e carregar o HTML
-def load_html():
+# Função para ler e carregar o HTML com as imagens em base64
+def load_html_with_images():
     html_path = Path("pascoa.html")
     
-    # Verifica se o arquivo existe
     if not html_path.exists():
         st.error("❌ Arquivo pascoa.html não encontrado!")
-        st.info("Certifique-se de que o arquivo está na mesma pasta que este script Python.")
         return None
     
     # Lê o conteúdo do HTML
     with open(html_path, 'r', encoding='utf-8') as f:
         html_content = f.read()
     
+    # Converte as imagens para base64 e substitui no HTML
+    imagens = [
+        'brigadeiro.png.jpeg',
+        'avela.png.jpeg', 
+        'sensacao.png.jpeg',
+        'maracuja.png.jpeg',
+        'prestigio.png.jpeg',
+        'trufado.png.jpeg',
+        'tablet.png.jpeg'
+    ]
+    
+    for img in imagens:
+        img_path = Path("static") / img
+        if img_path.exists():
+            with open(img_path, "rb") as f:
+                data = base64.b64encode(f.read()).decode()
+                # Substitui o src da imagem no HTML
+                html_content = html_content.replace(
+                    f'src="{img}"', 
+                    f'src="data:image/jpeg;base64,{data}"'
+                )
+                html_content = html_content.replace(
+                    f"src='{img}'", 
+                    f"src='data:image/jpeg;base64,{data}'"
+                )
+    
     return html_content
 
-# Função para obter imagens como base64 (se necessário)
-def get_image_base64(image_path):
-    if Path(image_path).exists():
-        with open(image_path, "rb") as img_file:
-            return base64.b64encode(img_file.read()).decode()
-    return None
-
-# Carrega o HTML
-html_content = load_html()
+# Carrega o HTML com as imagens
+html_content = load_html_with_images()
 
 if html_content:
-    # Se quiser garantir que as imagens funcionem mesmo em subpastas,
-    # você pode processar o HTML para incluir base64 ou ajustar caminhos
-    
-    # Opção 1: Renderizar o HTML diretamente (mais simples)
     st.components.v1.html(html_content, height=1200, scrolling=True)
-    
-    # Opção 2: Se precisar ajustar caminhos das imagens (descomente se necessário)
-    # html_content = html_content.replace('src="', 'src="./')
-    # st.components.v1.html(html_content, height=1200, scrolling=True)
-    
 else:
-    st.warning("⚠️ Coloque o arquivo pascoa.html na mesma pasta deste script.")
+    st.warning("⚠️ Verifique se o arquivo pascoa.html e as imagens estão na pasta correta.")
 
-# Informação adicional
 st.markdown("---")
 st.caption("🍬 Amor Cacau - Cardápio de Páscoa")
