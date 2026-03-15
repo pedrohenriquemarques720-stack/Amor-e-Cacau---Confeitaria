@@ -21,8 +21,15 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Função para ler e carregar o HTML com as imagens em base64
-def load_html_with_images():
+# Função para converter imagem para base64
+def get_image_base64(image_path):
+    if Path(image_path).exists():
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    return None
+
+# Carrega o HTML e substitui as imagens por base64
+def load_html():
     html_path = Path("pascoa.html")
     
     if not html_path.exists():
@@ -33,41 +40,44 @@ def load_html_with_images():
     with open(html_path, 'r', encoding='utf-8') as f:
         html_content = f.read()
     
-    # Converte as imagens para base64 e substitui no HTML
+    # Lista de todas as imagens
     imagens = [
         'brigadeiro.png.jpeg',
-        'avela.png.jpeg', 
-        'sensacao.png.jpeg',
+        'avela.png.jpeg',
+        'sensacao.png.jpeg', 
         'maracuja.png.jpeg',
         'prestigio.png.jpeg',
         'trufado.png.jpeg',
         'tablet.png.jpeg'
     ]
     
+    # Substitui cada imagem pelo base64
     for img in imagens:
         img_path = Path("static") / img
-        if img_path.exists():
-            with open(img_path, "rb") as f:
-                data = base64.b64encode(f.read()).decode()
-                # Substitui o src da imagem no HTML
-                html_content = html_content.replace(
-                    f'src="{img}"', 
-                    f'src="data:image/jpeg;base64,{data}"'
-                )
-                html_content = html_content.replace(
-                    f"src='{img}'", 
-                    f"src='data:image/jpeg;base64,{data}'"
-                )
+        img_base64 = get_image_base64(img_path)
+        
+        if img_base64:
+            # Substitui no HTML (com e sem aspas)
+            html_content = html_content.replace(
+                f'src="{img}"', 
+                f'src="data:image/jpeg;base64,{img_base64}"'
+            )
+            html_content = html_content.replace(
+                f"src='{img}'", 
+                f"src='data:image/jpeg;base64,{img_base64}'"
+            )
     
     return html_content
 
-# Carrega o HTML com as imagens
-html_content = load_html_with_images()
+# Carrega o HTML com as imagens em base64
+html_content = load_html()
 
 if html_content:
+    # Renderiza o HTML
     st.components.v1.html(html_content, height=1200, scrolling=True)
 else:
-    st.warning("⚠️ Verifique se o arquivo pascoa.html e as imagens estão na pasta correta.")
+    st.error("❌ Erro ao carregar o cardápio. Verifique os arquivos.")
 
+# Rodapé
 st.markdown("---")
 st.caption("🍬 Amor Cacau - Cardápio de Páscoa")
