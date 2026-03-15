@@ -2,7 +2,7 @@ import streamlit as st
 from pathlib import Path
 import base64
 
-# Configuração da página - AGORA SEM BORDAS
+# Configuração da página - MODO CLEAN TOTAL
 st.set_page_config(
     page_title="Amor Cacau - Páscoa Gourmet",
     page_icon="🍫",
@@ -10,37 +10,48 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# CSS PARA REMOVER TODAS AS BORDAS BRANCAS E AJUSTAR ZOOM
+# CSS PARA REMOVER ABSOLUTAMENTE TUDO
 hide_streamlit_style = """
     <style>
-        /* Remove elementos do Streamlit */
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
+        /* Remove TODOS os elementos do Streamlit */
+        #MainMenu {display: none !important;}
+        footer {display: none !important;}
+        header {display: none !important;}
+        .stAppDeploymentButton {display: none !important;}
         
-        /* Remove todas as bordas brancas e padding */
+        /* Remove qualquer espaço branco */
         .stApp {
-            margin-top: -80px;
+            margin: 0 !important;
+            padding: 0 !important;
             background-color: #fcf5ec;
         }
         
-        .main > div {
-            padding: 0 !important;
+        .main {
             margin: 0 !important;
-            max-width: 100% !important;
+            padding: 0 !important;
         }
         
         .block-container {
-            padding: 0 !important;
             margin: 0 !important;
+            padding: 0 !important;
             max-width: 100% !important;
         }
         
-        /* Remove qualquer fundo branco */
-        .stApp, .main, .css-1y4p8pa, .css-12oz5g7 {
+        /* Remove qualquer elemento que possa aparecer */
+        .css-1y4p8pa, .css-12oz5g7, .css-1dp5vir, .css-1wrcr25 {
+            display: none !important;
+        }
+        
+        /* Garante que o fundo ocupe tudo */
+        .stApp, .main, div[data-testid="stAppViewContainer"] {
             background-color: #fcf5ec !important;
             padding: 0 !important;
             margin: 0 !important;
+        }
+        
+        /* Remove aquele "Manage app" */
+        .st-emotion-cache-1dp5vir, .st-emotion-cache-1wrcr25 {
+            display: none !important;
         }
         
         /* Ajuste de zoom global */
@@ -48,6 +59,7 @@ hide_streamlit_style = """
             zoom: 0.75;
             -moz-transform: scale(0.75);
             -moz-transform-origin: 0 0;
+            overflow-x: hidden;
         }
     </style>
 """
@@ -105,12 +117,12 @@ def load_html():
 html_content = load_html()
 
 if html_content:
-    # Renderiza o HTML - AGORA SEM BORDAS
+    # Renderiza o HTML - AGORA SEM NENHUMA BARRA
     st.components.v1.html(
         html_content, 
         height=1200, 
         scrolling=True,
-        width=None  # Isso faz ocupar toda largura
+        width=None
     )
 else:
     st.error("❌ Erro ao carregar o cardápio. Verifique os arquivos.")
