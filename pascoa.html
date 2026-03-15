@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Amor Cacau · Ovos de Páscoa Gourmet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Open Sans', sans-serif;
+        }
+
+        body {
+            background-color: #fcf5ec;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(218, 165, 110, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 90% 70%, rgba(150, 90, 40, 0.05) 0%, transparent 40%);
+            padding: 1.2rem 1rem 2.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            background: rgba(255, 245, 235, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 90px 90px 40px 40px;
+            padding: 1.8rem 1.5rem 1.2rem;
+            box-shadow: 0 15px 30px rgba(120, 70, 30, 0.15);
+            border: 2px solid #e7c29f;
+        }
+
+        .gourmet-tag {
+            font-size: 1.3rem;
+            letter-spacing: 10px;
+            color: #b0794a;
+            font-weight: 400;
+            text-transform: uppercase;
+            background: #faebdb;
+            display: inline-block;
+            padding: 0.2rem 2rem;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            border: 1px solid #d4a172;
+        }
+
+        .brand-header h1 {
+            font-size: 4.5rem;
+            font-weight: 300;
+            color: #422c1a;
+            line-height: 1;
+            text-transform: uppercase;
+            font-family: 'Times New Roman', 'Georgia', serif;
+            letter-spacing: 4px;
+            text-shadow: 3px 3px 0 rgba(235, 185, 130, 0.3);
+        }
+
+        .brand-header h1 span {
+            font-weight: 800;
+            color: #b45f2b;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .frase-pascoa {
+            font-size: 1.6rem;
+            color: #7b4d29;
+            font-style: italic;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #fbebdb;
+            padding: 0.6rem 2.5rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin: 0.8rem 0 0.2rem;
+            border: 2px solid #dba979;
+            box-shadow: 0 4px 0 #9b6f42;
+        }
+
+        .cart-bar {
+            position: sticky;
+            top: 10px;
+            z-index: 40;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .cart-button {
+            background: #6a4124;
+            border: 3px solid #e9b384;
+            border-radius: 60px;
+            padding: 14px 32px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.4rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 12px 22px #7b532f;
+            cursor: pointer;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+        }
+
+        .cart-badge {
+            background: #f8cb9c;
+            color: #3b2818;
+            border-radius: 50px;
+            padding: 6px 20px;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .cart-panel {
+            background: #fffbf5;
+            border: 4px solid #c49560;
+            border-radius: 70px;
+            padding: 2rem;
+            margin: 1rem 0 2.5rem;
+            box-shadow: 0 25px 40px #7b5f44;
+            display: none;
+        }
+
+        .cart-panel.show { display: block; }
+
+        .cart-items {
+            max-height: 350px;
+            overflow-y: auto;
+            margin: 1.5rem 0;
+            padding-right: 5px;
+        }
+
+        .cart-item-row {
+            background: #f2e1d0;
+            border-radius: 60px;
+            padding: 1rem 1.8rem;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #ba8f64;
+        }
+
+        .cart-total {
+            font-size: 2.6rem;
+            font-weight: 800;
+            text-align: right;
+            color: #5a321a;
+            border-top: 4px dashed #c49a6c;
+            padding-top: 1.5rem;
+        }
+
+        .btn-wa-finalizar {
+            background: #25D366;
+            border: none;
+            border-radius: 80px;
+            padding: 1.5rem 2rem;
+            font-weight: 800;
+            font-size: 1.8rem;
+            width: 100%;
+            cursor: pointer;
+            color: white;
+            border: 3px solid #1a8c4a;
+            transition: 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn-wa-finalizar:hover { background: #20b859; }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #5f381d;
+            border-left: 18px solid #b27948;
+            padding-left: 2rem;
+            margin: 2.8rem 0 2rem;
+            text-transform: uppercase;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 60px;
+            box-shadow: 0 25px 40px rgba(100, 60, 20, 0.25);
+            border: 3px solid #ebc7a0;
+            overflow: hidden;
+            transition: transform 0.25s ease;
+        }
+
+        .product-card:hover { transform: translateY(-6px); }
+
+        .product-image-container {
+            height: 260px;
+            overflow: hidden;
+            border-bottom: 5px solid #b27948;
+            position: relative;
+            background-color: #f5e5d5;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.65);
+            color: white;
+            padding: 8px 28px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            backdrop-filter: blur(5px);
+            font-weight: 600;
+            border: 1px solid #f0c08b;
+            z-index: 2;
+        }
+
+        .card-content {
+            padding: 1.8rem 1.5rem 2rem;
+        }
+
+        .product-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #2f1d0f;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+            color: #a1531f;
+            font-weight: 800;
+            margin: 8px 0 6px;
+        }
+
+        .product-desc {
+            color: #5a3f28;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin: 12px 0;
+        }
+
+        .product-weight {
+            background: #edd7bf;
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 1px solid #b77f4a;
+        }
+
+        .btn-add {
+            background: #b0723b;
+            border: none;
+            color: white;
+            border-radius: 60px;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #6b401f;
+            transition: 0.1s;
+            margin-top: 20px;
+            width: 100%;
+            border: 2px solid #f5d2aa;
+        }
+
+        .btn-add:active { transform: translateY(5px); box-shadow: none; }
+
+        .trio-card {
+            background: #fcf3e7;
+            border-radius: 60px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border: 4px solid #c49560;
+            box-shadow: 0 25px 35px #a28366;
+        }
+
+        .trio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .trio-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #3e2817;
+        }
+
+        .trio-price {
+            font-size: 2.8rem;
+            color: #a8561f;
+            font-weight: 800;
+        }
+
+        .trio-selectors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .trio-selectors select {
+            flex: 1 1 180px;
+            background: white;
+            border: 3px solid #c49a6c;
+            border-radius: 60px;
+            padding: 1rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #2b1c0e;
+        }
+
+        .info-panel {
+            background: #dfcab4;
+            border-radius: 90px;
+            padding: 2.5rem 2rem;
+            margin-top: 3.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            border: 5px solid #a77b51;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #2b1c0e;
+        }
+
+        .info-panel span { display: flex; align-items: center; gap: 12px; }
+
+        .footer {
+            text-align: center;
+            margin: 2.5rem 0 0.5rem;
+            color: #825e3c;
+            font-size: 1.4rem;
+            border-top: 2px dashed #b98f63;
+            padding-top: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="brand-header">
+        <div class="gourmet-tag">GOURMET</div>
+        <h1>Amor <span>Cacau</span></h1>
+        <div class="frase-pascoa">🍫 A Páscoa mais doce da sua vida 🐰</div>
+    </div>
+
+    <div class="cart-bar">
+        <button class="cart-button" id="toggleCartBtn">
+            <span>🧾 Carrinho</span>
+            <span class="cart-badge" id="cartCount">0</span>
+        </button>
+    </div>
+    <div class="cart-panel" id="cartPanel">
+        <h2 style="color:#3b2a1a; font-size:2.2rem;">🛒 Seus ovos selecionados</h2>
+        <div class="cart-items" id="cartItemsList"></div>
+        <div class="cart-total" id="cartTotal">R$ 0,00</div>
+        <button class="btn-wa-finalizar" id="finalizarBtn">📲 Finalizar pedido no WhatsApp</button>
+    </div>
+
+    <div class="section-title">🥚 OVOS DE COLHER</div>
+    <div class="card-grid">
+        <!-- Intenso Brigadeiro -->
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="brigadeiro.png.jpeg" alt="Intenso Brigadeiro">
+            </div>
+            <div class="card-content">
+                <div class="product-name">Intenso Brigadeiro</div>
+                <div class="product-weight">500g aprox.</div>
+                <div class="product-price">R$74,90</div>
+                <div class="product-desc">Casca meio amargo, recheio de brigadeiro cremoso e granulado</div>
+                <button class="btn-add add-simples" data-produto='{"nome":"Intenso Brigadeiro","preco":74.90,"peso":"500g"}'>➕ Adicionar</button>
+            </div>
+        </div>
+
+        <!-- Supremo Avelã -->
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="avela.png.jpeg" alt="Supremo Avelã">
+            </div>
+            <div class="card-content">
+                <div class="product-name">Supremo Avelã</div>
+                <div class="product-weight">400g aprox.</div>
+                <div class="product-price">R$94,90</div>
+                <div class="product-desc">Chocolate ao leite, brigadeiro cremoso, creme de avelã e crocância</div>
+                <button class="btn-add add-simples" data-produto='{"nome":"Supremo Avelã","preco":94.90,"peso":"400g"}'>➕ Adicionar</button>
+            </div>
+        </div>
+
+        <!-- Sensação -->
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="sensacao.png.jpeg" alt="Sensação">
+            </div>
+            <div class="card-content">
+                <div class="product-name">Sensação</div>
+                <div class="product-weight">500g aprox.</div>
+                <div class="product-price">R$94,90</div>
+                <div class="product-desc">Casca meio amargo, brigadeiro e geleia artesanal de morango</div>
+                <button class="btn-add add-simples" data-produto='{"nome":"Sensação","preco":94.90,"peso":"500g"}'>➕ Adicionar</button>
+            </div>
+        </div>
+
+        <!-- Paraíso Tropical -->
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="maracuja.png.jpeg" alt="Paraíso Tropical">
+            </div>
+            <div class="card-content">
+                <div class="product-name">Paraíso Tropical</div>
+                <div class="product-weight">350g aprox.</div>
+                <div class="product-price">R$74,90</div>
+                <div class="product-desc">Casca ao leite, brigadeiro de maracujá, cobertura de maracujá</div>
+                <button class="btn-add add-simples" data-produto='{"nome":"Paraíso Tropical","preco":74.90,"peso":"350g"}'>➕ Adicionar</button>
+            </div>
+        </div>
+
+        <!-- Prestígio Intenso -->
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="prestigio.png.jpeg" alt="Prestígio Intenso">
+            </div>
+            <div class="card-content">
+                <div class="product-name">Prestígio Intenso</div>
+                <div class="product-weight">350g aprox.</div>
+                <div class="product-price">R$74,90</div>
+                <div class="product-desc">Casca meio amargo com recheio cremoso de coco</div>
+                <button class="btn-add add-simples" data-produto='{"nome":"Prestígio Intenso","preco":74.90,"peso":"350g"}'>➕ Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRIO TENTAÇÃO -->
+    <div class="trio-card">
+        <div class="trio-header">
+            <span class="trio-name">🍬 Trio Tentação</span>
+            <span class="trio-price">R$94,90</span>
+        </div>
+        <div style="font-size:1.4rem; color: #5f381d;">Três ovos de casquinha (100g cada) · peso total ±550g</div>
+        
+        <div class="trio-selectors">
+            <select id="trioSabor1">
+                <option value="Supremo Avelã">Supremo Avelã</option>
+                <option value="Sensação">Sensação</option>
+                <option value="Paraíso Tropical">Paraíso Tropical</option>
+                <option value="Intenso Brigadeiro">Intenso Brigadeiro</option>
+                <option value="Prestígio Intenso">Prestígio Intenso</option>
+            </select>
+            <select id="trioSabor2">
+                <option value="Supremo Avelã">Supremo Avelã</option>
+                <option value="Sensação">Sensação</option>
+                <option value="Paraíso Tropical">Paraíso Tropical</option>
+                <option value="Intenso Brigadeiro">Intenso Brigadeiro</option>
+                <option value="Prestígio Intenso">Prestígio Intenso</option>
+            </select>
+            <select id="trioSabor3">
+                <option value="Supremo Avelã">Supremo Avelã</option>
+                <option value="Sensação">Sensação</option>
+                <option value="Paraíso Tropical">Paraíso Tropical</option>
+                <option value="Intenso Brigadeiro">Intenso Brigadeiro</option>
+                <option value="Prestígio Intenso">Prestígio Intenso</option>
+            </select>
+        </div>
+        <button class="btn-add" id="addTrioBtn">➕ Adicionar Trio ao carrinho</button>
+    </div>
+
+    <!-- Ovo Trufado e Tablet -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
+        <!-- Ovo Trufado -->
+        <div class="product-card">
+            <div class="product-image-container" style="height:200px;">
+                <img src="trufado.png.jpeg" alt="Ovo Trufado">
+            </div>
+            <div class="card-content">
+                <div class="product-name">Ovo Trufado</div>
+                <div class="product-price">R$69,90</div>
+                <div class="product-desc">350g · Cascas: ao leite/meio amargo · Recheios: brigadeiro, prestígio, maracujá, sensação</div>
+                <button class="btn-add add-simples" data-produto='{"nome":"Ovo Trufado","preco":69.90,"peso":"350g"}'>➕ Adicionar</button>
+            </div>
+        </div>
+
+        <!-- Tablet Recheado -->
+        <div class="product-card">
+            <div class="product-image-container" style="height:200px;">
+                <img src="tablet.png.jpeg" alt="Tablet Recheado">
+            </div>
+            <div class="card-content">
+                <div class="product-name">Tablet Recheado</div>
+                <div class="product-price">R$34,90</div>
+                <div class="product-desc">Chocolate ao leite · Recheios: brigadeiro, beijinho, sensação, maracujá</div>
+                <button class="btn-add add-simples" data-produto='{"nome":"Tablet Recheado","preco":34.90,"peso":"160g"}'>➕ Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <span>📲 Pedidos exclusivamente WhatsApp</span>
+        <span>💳 50% entrada / 50% retirada</span>
+        <span>📆 Retirada: 3 e 4 abril 14h</span>
+        <span>🥄 Todos com colher e caixa</span>
+        <span>⏳ Consumo: até 3 dias</span>
+        <span>📞 19 99248-3488</span>
+    </div>
+
+    <div class="footer">
+        ✨ fabricação artesanal · amor em cada detalhe · Páscoa Amor Cacau ✨
+    </div>
+</div>
+
+<script>
+    (function() {
+        const WA_NUMBER = '5519992483488';
+        let carrinho = [];
+
+        const cartPanel = document.getElementById('cartPanel');
+        const toggleBtn = document.getElementById('toggleCartBtn');
+        const cartCountSpan = document.getElementById('cartCount');
+        const cartItemsDiv = document.getElementById('cartItemsList');
+        const cartTotalSpan = document.getElementById('cartTotal');
+        const finalizarBtn = document.getElementById('finalizarBtn');
+
+        function atualizarUI() {
+            cartCountSpan.innerText = carrinho.length;
+
+            if (carrinho.length === 0) {
+                cartItemsDiv.innerHTML = '<div style="padding:2rem; text-align:center; font-size:1.5rem;">🛒 Seu carrinho está vazio</div>';
+                cartTotalSpan.innerText = 'R$ 0,00';
+                finalizarBtn.disabled = true;
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+            carrinho.forEach((item, index) => {
+                total += item.preco;
+                let descricao = item.nome;
+                if (item.variante) descricao += ` (${item.variante})`;
+                if (item.peso) descricao += ` · ${item.peso}`;
+
+                html += `<div class="cart-item-row">
+                    <span style="font-size:1.3rem; font-weight:500;">${descricao}</span>
+                    <span style="font-size:1.8rem; font-weight:800;">R$ ${item.preco.toFixed(2).replace('.',',')}</span>
+                    <button class="remove-item" data-index="${index}" style="background:#b33; border:none; color:white; border-radius:50%; width:45px; height:45px; font-size:1.8rem; cursor:pointer;">✕</button>
+                </div>`;
+            });
+
+            cartItemsDiv.innerHTML = html;
+            cartTotalSpan.innerText = `R$ ${total.toFixed(2).replace('.',',')}`;
+            finalizarBtn.disabled = false;
+
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = this.getAttribute('data-index');
+                    carrinho.splice(idx, 1);
+                    atualizarUI();
+                });
+            });
+        }
+
+        function adicionarAoCarrinho(produto) {
+            carrinho.push(produto);
+            atualizarUI();
+            cartPanel.classList.add('show');
+        }
+
+        document.querySelectorAll('.add-simples').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const produto = JSON.parse(this.dataset.produto);
+                adicionarAoCarrinho(produto);
+            });
+        });
+
+        document.getElementById('addTrioBtn').addEventListener('click', function() {
+            const s1 = document.getElementById('trioSabor1').value;
+            const s2 = document.getElementById('trioSabor2').value;
+            const s3 = document.getElementById('trioSabor3').value;
+            adicionarAoCarrinho({
+                nome: 'Trio Tentação',
+                preco: 94.90,
+                variante: `${s1}, ${s2}, ${s3}`,
+                peso: '3x100g'
+            });
+        });
+
+        toggleBtn.addEventListener('click', function() {
+            cartPanel.classList.toggle('show');
+        });
+
+        finalizarBtn.addEventListener('click', function() {
+            if (carrinho.length === 0) return;
+
+            let mensagem = 'Olá! Gostaria de fazer meu pedido:%0A%0A';
+            let total = 0;
+
+            carrinho.forEach(item => {
+                let linha = `• ${item.nome}`;
+                if (item.variante) linha += ` (${item.variante})`;
+                if (item.peso) linha += ` · ${item.peso}`;
+                linha += ` - R$ ${item.preco.toFixed(2).replace('.',',')}`;
+                mensagem += linha + '%0A';
+                total += item.preco;
+            });
+
+            mensagem += `%0A*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*%0A%0A`;
+            mensagem += '50% no ato da encomenda, retirada 3 ou 4 abril.';
+
+            window.open(`https://wa.me/${WA_NUMBER}?text=${mensagem}`, '_blank');
+        });
+
+        atualizarUI();
+        cartPanel.classList.remove('show');
+    })();
+</script>
+</body>
+</html>
