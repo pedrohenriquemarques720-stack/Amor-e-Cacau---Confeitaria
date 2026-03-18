@@ -84,20 +84,20 @@ def load_html():
     with open(html_path, 'r', encoding='utf-8') as f:
         html_content = f.read()
     
-    # Lista de todas as imagens
+    # Lista de todas as imagens com o caminho static/
     imagens = [
-        'brigadeiro.png.jpeg',
-        'avela.png.jpeg',
-        'sensacao.png.jpeg', 
-        'maracuja.png.jpeg',
-        'prestigio.png.jpeg',
-        'trufado.png.jpeg',
-        'tablet.png.jpeg'
+        'static/brigadeiro.png.jpeg',
+        'static/avela.png.jpeg',
+        'static/sensacao.png.jpeg', 
+        'static/maracuja.png.jpeg',
+        'static/prestigio.png.jpeg',
+        'static/trufado.png.jpeg',
+        'static/tablet.png.jpeg'
     ]
     
     # Substitui cada imagem pelo base64
     for img in imagens:
-        img_path = Path("static") / img
+        img_path = Path(img)
         img_base64 = get_image_base64(img_path)
         
         if img_base64:
