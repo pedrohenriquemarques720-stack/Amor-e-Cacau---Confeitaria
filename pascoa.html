@@ -18,7 +18,8 @@
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(218, 165, 110, 0.08) 0%, transparent 30%),
                 radial-gradient(circle at 90% 70%, rgba(150, 90, 40, 0.05) 0%, transparent 40%);
-            padding: 1.2rem 1rem 2.5rem;
+            padding: 0;
+            margin: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -32,13 +33,14 @@
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
+            padding: 1rem;
         }
 
         /* Modal para expandir imagens */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
@@ -71,7 +73,7 @@
             font-size: 50px;
             font-weight: bold;
             cursor: pointer;
-            z-index: 1001;
+            z-index: 2001;
         }
 
         .close-modal:hover {
@@ -111,9 +113,9 @@
             border-radius: 20px;
             font-size: 0.8rem;
             z-index: 3;
+            pointer-events: none;
         }
 
-        /* Mantém a legenda sobre a imagem */
         .image-caption {
             position: absolute;
             bottom: 15px;
@@ -130,7 +132,6 @@
             pointer-events: none;
         }
 
-        /* Restante do CSS permanece igual */
         .brand-header {
             text-align: center;
             margin-bottom: 1.8rem;
@@ -421,11 +422,6 @@
         }
 
         .info-panel span { display: flex; align-items: center; gap: 12px; }
-
-        /* Remove qualquer footer */
-        footer {
-            display: none !important;
-        }
     </style>
 </head>
 <body>
@@ -619,6 +615,7 @@
         
         modal.style.display = 'block';
         modalImg.src = img.src;
+        event.stopPropagation();
     }
     
     // Função para fechar o modal
