@@ -34,6 +34,103 @@
             margin: 0 auto;
         }
 
+        /* Modal para expandir imagens */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            cursor: pointer;
+        }
+
+        .modal-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .modal-content img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close-modal:hover {
+            color: #f8cb9c;
+        }
+
+        /* Estilo para as imagens clicáveis */
+        .product-image-container {
+            height: 260px;
+            overflow: hidden;
+            border-bottom: 5px solid #b27948;
+            position: relative;
+            background-color: #f5e5d5;
+            cursor: pointer;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-image-container:hover::after {
+            content: "🔍 Clique para expandir";
+            position: absolute;
+            bottom: 50px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 3;
+        }
+
+        /* Mantém a legenda sobre a imagem */
+        .image-caption {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.65);
+            color: white;
+            padding: 8px 28px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            backdrop-filter: blur(5px);
+            font-weight: 600;
+            border: 1px solid #f0c08b;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Restante do CSS permanece igual */
         .brand-header {
             text-align: center;
             margin-bottom: 1.8rem;
@@ -209,36 +306,6 @@
 
         .product-card:hover { transform: translateY(-6px); }
 
-        .product-image-container {
-            height: 260px;
-            overflow: hidden;
-            border-bottom: 5px solid #b27948;
-            position: relative;
-            background-color: #f5e5d5;
-        }
-
-        .product-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .image-caption {
-            position: absolute;
-            bottom: 15px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.65);
-            color: white;
-            padding: 8px 28px;
-            border-radius: 50px;
-            font-size: 1.4rem;
-            backdrop-filter: blur(5px);
-            font-weight: 600;
-            border: 1px solid #f0c08b;
-            z-index: 2;
-        }
-
         .card-content {
             padding: 1.8rem 1.5rem 2rem;
         }
@@ -355,30 +422,9 @@
 
         .info-panel span { display: flex; align-items: center; gap: 12px; }
 
-        /* Remove APENAS o aviso do Windows e elementos do Streamlit, NÃO as imagens */
-        .stApp, .stApp * {
-            background-color: transparent !important;
-        }
-        
-        /* Esconde elementos específicos do Streamlit que causam o aviso */
-        [data-testid="stNotification"], 
-        [data-testid="stBottom"], 
-        [data-testid="stDecoration"],
-        .stAlert,
-        .st-at,
-        .st-bb,
-        .st-be {
-            display: none !important;
-        }
-
-        /* Remove qualquer footer criado pelo Streamlit, mas preserva o conteúdo */
+        /* Remove qualquer footer */
         footer {
             display: none !important;
-        }
-        
-        /* Remove o aviso de ativar Windows que aparece localmente */
-        body:has(div:contains("Ativar Windows")) {
-            overflow: hidden;
         }
     </style>
 </head>
@@ -407,71 +453,76 @@
     <div class="card-grid">
         <!-- Intenso Brigadeiro -->
         <div class="product-card">
-            <div class="product-image-container">
+            <div class="product-image-container" onclick="openModal(this)">
                 <img src="static/brigadeiro.png.jpeg" alt="Intenso Brigadeiro">
+                <span class="image-caption">🍫 Intenso Brigadeiro</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Intenso Brigadeiro</div>
                 <div class="product-weight">500g aprox.</div>
                 <div class="product-price">R$74,90</div>
                 <div class="product-desc">Casca meio amargo, recheio de brigadeiro cremoso e granulado</div>
-                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Intenso Brigadeiro&quot;,&quot;preco&quot;:74.90,&quot;peso&quot;:&quot;500g&quot;}">➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto='{"nome":"Intenso Brigadeiro","preco":74.90,"peso":"500g"}'>➕ Adicionar</button>
             </div>
         </div>
 
         <!-- Supremo Avelã -->
         <div class="product-card">
-            <div class="product-image-container">
+            <div class="product-image-container" onclick="openModal(this)">
                 <img src="static/avela.png.jpeg" alt="Supremo Avelã">
+                <span class="image-caption">🌰 Supremo Avelã</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Supremo Avelã</div>
                 <div class="product-weight">400g aprox.</div>
                 <div class="product-price">R$94,90</div>
                 <div class="product-desc">Chocolate ao leite, brigadeiro cremoso, creme de avelã e crocância</div>
-                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Supremo Avelã&quot;,&quot;preco&quot;:94.90,&quot;peso&quot;:&quot;400g&quot;}">➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto='{"nome":"Supremo Avelã","preco":94.90,"peso":"400g"}'>➕ Adicionar</button>
             </div>
         </div>
 
         <!-- Sensação -->
         <div class="product-card">
-            <div class="product-image-container">
+            <div class="product-image-container" onclick="openModal(this)">
                 <img src="static/sensacao.png.jpeg" alt="Sensação">
+                <span class="image-caption">🍓 Sensação</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Sensação</div>
                 <div class="product-weight">500g aprox.</div>
                 <div class="product-price">R$94,90</div>
                 <div class="product-desc">Casca meio amargo, brigadeiro e geleia artesanal de morango</div>
-                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Sensação&quot;,&quot;preco&quot;:94.90,&quot;peso&quot;:&quot;500g&quot;}">➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto='{"nome":"Sensação","preco":94.90,"peso":"500g"}'>➕ Adicionar</button>
             </div>
         </div>
 
         <!-- Paraíso Tropical -->
         <div class="product-card">
-            <div class="product-image-container">
+            <div class="product-image-container" onclick="openModal(this)">
                 <img src="static/maracuja.png.jpeg" alt="Paraíso Tropical">
+                <span class="image-caption">🌺 Paraíso Tropical</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Paraíso Tropical</div>
                 <div class="product-weight">350g aprox.</div>
                 <div class="product-price">R$74,90</div>
                 <div class="product-desc">Casca ao leite, brigadeiro de maracujá, cobertura de maracujá</div>
-                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Paraíso Tropical&quot;,&quot;preco&quot;:74.90,&quot;peso&quot;:&quot;350g&quot;}">➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto='{"nome":"Paraíso Tropical","preco":74.90,"peso":"350g"}'>➕ Adicionar</button>
             </div>
         </div>
 
         <!-- Prestígio Intenso -->
         <div class="product-card">
-            <div class="product-image-container">
+            <div class="product-image-container" onclick="openModal(this)">
                 <img src="static/prestigio.png.jpeg" alt="Prestígio Intenso">
+                <span class="image-caption">🥥 Prestígio Intenso</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Prestígio Intenso</div>
                 <div class="product-weight">350g aprox.</div>
                 <div class="product-price">R$74,90</div>
                 <div class="product-desc">Casca meio amargo com recheio cremoso de coco</div>
-                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Prestígio Intenso&quot;,&quot;preco&quot;:74.90,&quot;peso&quot;:&quot;350g&quot;}">➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto='{"nome":"Prestígio Intenso","preco":74.90,"peso":"350g"}'>➕ Adicionar</button>
             </div>
         </div>
     </div>
@@ -514,27 +565,29 @@
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
         <!-- Ovo Trufado -->
         <div class="product-card">
-            <div class="product-image-container" style="height:200px;">
+            <div class="product-image-container" style="height:200px;" onclick="openModal(this)">
                 <img src="static/trufado.png.jpeg" alt="Ovo Trufado">
+                <span class="image-caption">🍬 Ovo Trufado</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Ovo Trufado</div>
                 <div class="product-price">R$69,90</div>
                 <div class="product-desc">350g · Cascas: ao leite/meio amargo · Recheios: brigadeiro, prestígio, maracujá, sensação</div>
-                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Ovo Trufado&quot;,&quot;preco&quot;:69.90,&quot;peso&quot;:&quot;350g&quot;}">➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto='{"nome":"Ovo Trufado","preco":69.90,"peso":"350g"}'>➕ Adicionar</button>
             </div>
         </div>
 
         <!-- Tablet Recheado -->
         <div class="product-card">
-            <div class="product-image-container" style="height:200px;">
+            <div class="product-image-container" style="height:200px;" onclick="openModal(this)">
                 <img src="static/tablet.png.jpeg" alt="Tablet Recheado">
+                <span class="image-caption">📦 Tablet Recheado</span>
             </div>
             <div class="card-content">
                 <div class="product-name">Tablet Recheado</div>
                 <div class="product-price">R$34,90</div>
                 <div class="product-desc">Chocolate ao leite · Recheios: brigadeiro, beijinho, sensação, maracujá</div>
-                <button class="btn-add add-simples" data-produto="{&quot;nome&quot;:&quot;Tablet Recheado&quot;,&quot;preco&quot;:34.90,&quot;peso&quot;:&quot;160g&quot;}">➕ Adicionar</button>
+                <button class="btn-add add-simples" data-produto='{"nome":"Tablet Recheado","preco":34.90,"peso":"160g"}'>➕ Adicionar</button>
             </div>
         </div>
     </div>
@@ -549,7 +602,38 @@
     </div>
 </div>
 
+<!-- Modal para expandir imagem -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="">
+    </div>
+</div>
+
 <script>
+    // Função para abrir o modal com a imagem expandida
+    function openModal(element) {
+        const img = element.querySelector('img');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        
+        modal.style.display = 'block';
+        modalImg.src = img.src;
+    }
+    
+    // Função para fechar o modal
+    function closeModal() {
+        document.getElementById('imageModal').style.display = 'none';
+    }
+    
+    // Fecha modal com ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    // Restante do script do carrinho
     (function() {
         const WA_NUMBER = '5519992483488';
         let carrinho = [];
