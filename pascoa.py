@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# CSS PARA REMOVER ABSOLUTAMENTE TUDO
+# CSS PARA REMOVER ABSOLUTAMENTE TUDO - INCLUINDO O FUNDO AMARELO
 hide_streamlit_style = """
     <style>
         /* Remove TODOS os elementos do Streamlit */
@@ -19,39 +19,61 @@ hide_streamlit_style = """
         header {display: none !important;}
         .stAppDeploymentButton {display: none !important;}
         
-        /* Remove qualquer espaço branco */
+        /* Remove qualquer espaço branco e fundo amarelo */
         .stApp {
             margin: 0 !important;
             padding: 0 !important;
-            background-color: #fcf5ec;
+            background-color: #fcf5ec !important;
         }
         
         .main {
             margin: 0 !important;
             padding: 0 !important;
+            background-color: #fcf5ec !important;
         }
         
         .block-container {
             margin: 0 !important;
             padding: 0 !important;
             max-width: 100% !important;
+            background-color: #fcf5ec !important;
         }
         
-        /* Remove qualquer elemento que possa aparecer */
-        .css-1y4p8pa, .css-12oz5g7, .css-1dp5vir, .css-1wrcr25 {
+        /* Remove TODOS os elementos com fundo amarelo ou qualquer cor que não seja a desejada */
+        [data-testid="stAppViewContainer"],
+        [data-testid="stHeader"],
+        [data-testid="stToolbar"],
+        [data-testid="stDecoration"],
+        .st-emotion-cache-1y4p8pa,
+        .st-emotion-cache-12oz5g7,
+        .st-emotion-cache-1dp5vir,
+        .st-emotion-cache-1wrcr25,
+        .st-emotion-cache-1v0mbdj,
+        .st-emotion-cache-1r6slb0,
+        .st-emotion-cache-1wmy9hl,
+        .st-emotion-cache-16txtl3,
+        .st-emotion-cache-1v7f65g,
+        .st-emotion-cache-1p1m4ay {
+            background-color: #fcf5ec !important;
+            background: #fcf5ec !important;
+        }
+        
+        /* Remove qualquer barra superior */
+        header[data-testid="stHeader"] {
             display: none !important;
+            background: transparent !important;
+        }
+        
+        /* Remove o fundo padrão do Streamlit */
+        .stApp > div:first-child {
+            background-color: #fcf5ec !important;
         }
         
         /* Garante que o fundo ocupe tudo */
-        .stApp, .main, div[data-testid="stAppViewContainer"] {
+        html, body, .stApp, .main, div[data-testid="stAppViewContainer"] {
             background-color: #fcf5ec !important;
             padding: 0 !important;
             margin: 0 !important;
-        }
-        
-        /* Remove aquele "Manage app" */
-        .st-emotion-cache-1dp5vir, .st-emotion-cache-1wrcr25 {
-            display: none !important;
         }
         
         /* Ajuste de zoom global */
@@ -60,6 +82,12 @@ hide_streamlit_style = """
             -moz-transform: scale(0.75);
             -moz-transform-origin: 0 0;
             overflow-x: hidden;
+            background-color: #fcf5ec !important;
+        }
+        
+        /* Remove qualquer elemento que possa ter cor amarela */
+        .st-bq, .st-br, .st-bs, .st-bt, .st-bu {
+            background-color: #fcf5ec !important;
         }
     </style>
 """
@@ -117,10 +145,10 @@ def load_html():
 html_content = load_html()
 
 if html_content:
-    # Renderiza o HTML - AGORA SEM NENHUMA BARRA
+    # Renderiza o HTML - SEM RESTRIÇÕES
     st.components.v1.html(
         html_content, 
-        height=1200, 
+        height=1500, 
         scrolling=True,
         width=None
     )
