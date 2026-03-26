@@ -10,79 +10,99 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# CSS EXTREMO - REMOVE ABSOLUTAMENTE TODOS OS ELEMENTOS
+# JAVASCRIPT PARA REMOVER RODAPÉ E ELEMENTOS FIXOS
+st.markdown("""
+    <script>
+        // Remove o rodapé assim que a página carregar
+        setTimeout(() => {
+            const footer = document.querySelector('footer');
+            if (footer) footer.remove();
+            
+            const deployButton = document.querySelector('.stAppDeploymentButton');
+            if (deployButton) deployButton.remove();
+            
+            const toolbar = document.querySelector('.stToolbar');
+            if (toolbar) toolbar.remove();
+            
+            // Remove qualquer elemento fixo
+            const fixedElements = document.querySelectorAll('[style*="position: fixed"]');
+            fixedElements.forEach(el => {
+                if (el.tagName !== 'IFRAME') el.remove();
+            });
+        }, 100);
+    </script>
+""", unsafe_allow_html=True)
+
+# CSS EXTREMO - REMOVE TUDO
 hide_streamlit_style = """
     <style>
-        /* Remove TODOS os elementos do Streamlit */
+        /* Remove todos os elementos do Streamlit */
         #MainMenu {display: none !important;}
-        footer {display: none !important;}
-        header {display: none !important;}
         .stAppDeploymentButton {display: none !important;}
         .stToolbar {display: none !important;}
         .stDecoration {display: none !important;}
         .stAlert {display: none !important;}
-        
-        /* Remove o botão Manage App e tudo relacionado */
-        button[kind="secondary"] {display: none !important;}
-        [data-testid="baseButton-header"] {display: none !important;}
-        [data-testid="stToolbar"] {display: none !important;}
+        .st-emotion-cache-1s5fgy6 {display: none !important;}
         .st-emotion-cache-1dp5vir {display: none !important;}
         .st-emotion-cache-1wrcr25 {display: none !important;}
         .st-emotion-cache-1v0mbdj {display: none !important;}
         .st-emotion-cache-1r6slb0 {display: none !important;}
-        .st-emotion-cache-1wmy9hl {display: none !important;}
-        .st-emotion-cache-16txtl3 {display: none !important;}
-        .st-emotion-cache-1v7f65g {display: none !important;}
-        .st-emotion-cache-1p1m4ay {display: none !important;}
-        .st-emotion-cache-1y4p8pa {display: none !important;}
-        .st-emotion-cache-12oz5g7 {display: none !important;}
         
-        /* Remove o cabeçalho inteiro */
-        header[data-testid="stHeader"] {
+        /* Remove o cabeçalho */
+        header {display: none !important;}
+        
+        /* REMOVE O RODAPÉ COMPLETAMENTE */
+        footer {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
             height: 0 !important;
             min-height: 0 !important;
+            max-height: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            position: fixed !important;
+            bottom: -100px !important;
+            left: -100px !important;
+            z-index: -9999 !important;
+            pointer-events: none !important;
+        }
+        
+        /* Remove o container do rodapé */
+        [data-testid="stFooter"] {
+            display: none !important;
+        }
+        
+        /* Remove a barra de scroll do rodapé */
+        .st-emotion-cache-1v7f65g {
+            display: none !important;
+        }
+        
+        /* Ajusta o app para ocupar tela toda */
+        .stApp {
             margin: 0 !important;
             padding: 0 !important;
-        }
-        
-        /* Remove a barra superior */
-        .stApp > header {
-            display: none !important;
-            height: 0 !important;
-        }
-        
-        /* Remove qualquer espaço no topo */
-        .stApp {
-            margin-top: -80px !important;
             background-color: #fcf5ec !important;
-        }
-        
-        /* Ajusta o container principal */
-        .main {
-            margin-top: -70px !important;
         }
         
         .block-container {
             padding: 0 !important;
             margin: 0 !important;
             max-width: 100% !important;
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
         }
         
-        /* Remove fundo padrão */
-        [data-testid="stAppViewContainer"] {
-            background-color: #fcf5ec !important;
-            padding: 0 !important;
-            margin: 0 !important;
+        /* Remove qualquer espaço no final */
+        .main {
+            margin-bottom: -100px !important;
         }
         
-        /* Remove o rodapé fixo */
-        footer {
-            display: none !important;
-            visibility: hidden !important;
-            height: 0 !important;
-            position: fixed !important;
-            bottom: -100px !important;
+        /* Ajusta o iframe para ocupar toda altura */
+        iframe {
+            height: calc(100vh - 20px) !important;
+            min-height: 800px !important;
+            margin-bottom: -80px !important;
         }
         
         /* Ajuste de zoom */
@@ -96,9 +116,16 @@ hide_streamlit_style = """
             background-color: #fcf5ec !important;
         }
         
-        /* Remove qualquer iframe extra */
-        iframe {
-            margin-top: -70px !important;
+        /* Remove qualquer elemento fixo */
+        [style*="position: fixed"] {
+            display: none !important;
+        }
+        
+        /* Remove qualquer fundo extra */
+        [data-testid="stAppViewContainer"] {
+            background-color: #fcf5ec !important;
+            padding: 0 !important;
+            margin: 0 !important;
         }
     </style>
 """
@@ -148,10 +175,12 @@ def load_html():
 html_content = load_html()
 
 if html_content:
-    # Usa HTML com altura que compensa o espaço removido
+    # Renderiza o HTML
     st.components.v1.html(
         html_content, 
         height=1600, 
         scrolling=True,
         width=None
     )
+else:
+    st.error("❌ Erro ao carregar o cardápio. Verifique os arquivos.")
