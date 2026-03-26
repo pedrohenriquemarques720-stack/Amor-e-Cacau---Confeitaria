@@ -10,88 +10,100 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# CSS para REMOVER TUDO e ocupar tela cheia
+# JavaScript para remover o rodapé e outros elementos
+st.markdown("""
+    <script>
+        // Função para remover elementos chatos
+        function removerElementos() {
+            // Remove o rodapé
+            const footer = document.querySelector('footer');
+            if (footer) footer.remove();
+            
+            // Remove o cabeçalho
+            const header = document.querySelector('header');
+            if (header) header.remove();
+            
+            // Remove o botão Manage App
+            const deployBtn = document.querySelector('.stAppDeploymentButton');
+            if (deployBtn) deployBtn.remove();
+            
+            // Remove a barra de ferramentas
+            const toolbar = document.querySelector('.stToolbar');
+            if (toolbar) toolbar.remove();
+            
+            // Remove qualquer elemento com texto "Manage app"
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(el => {
+                if (el.innerText === 'Manage app' || el.innerText === 'Manage app ') {
+                    el.remove();
+                }
+            });
+        }
+        
+        // Executa quando a página carregar
+        setTimeout(removerElementos, 100);
+        setTimeout(removerElementos, 500);
+        setTimeout(removerElementos, 1000);
+        
+        // Observa mudanças na página
+        const observer = new MutationObserver(function(mutations) {
+            removerElementos();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    </script>
+""", unsafe_allow_html=True)
+
+# CSS para esconder tudo
 st.markdown("""
     <style>
-        /* Remove TODOS os elementos do Streamlit */
-        header, footer, .stAppDeploymentButton, .stToolbar, .stDecoration,
+        /* Esconde elementos */
+        footer, header, .stAppDeploymentButton, .stToolbar, 
         #MainMenu, .st-emotion-cache-1dp5vir, .st-emotion-cache-1wrcr25,
-        .st-emotion-cache-1v0mbdj, .st-emotion-cache-1r6slb0,
-        .st-emotion-cache-1wmy9hl, .st-emotion-cache-16txtl3,
-        .st-emotion-cache-1v7f65g, .st-emotion-cache-1p1m4ay,
-        .st-emotion-cache-1y4p8pa, .st-emotion-cache-12oz5g7,
-        [data-testid="stHeader"], [data-testid="stFooter"],
-        [data-testid="stToolbar"], [data-testid="stDecoration"] {
+        [data-testid="stHeader"], [data-testid="stFooter"] {
             display: none !important;
             visibility: hidden !important;
+            opacity: 0 !important;
             height: 0 !important;
-            min-height: 0 !important;
-            max-height: 0 !important;
-            padding: 0 !important;
-            margin: 0 !important;
+            width: 0 !important;
             position: absolute !important;
             top: -9999px !important;
             left: -9999px !important;
         }
         
-        /* Remove margens e padding do app */
+        /* Ajusta o container principal */
         .stApp {
             margin: 0 !important;
             padding: 0 !important;
             background-color: #fcf5ec !important;
         }
         
-        .main {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        
         .block-container {
             padding: 0 !important;
             margin: 0 !important;
             max-width: 100% !important;
-            width: 100% !important;
         }
         
-        /* Remove qualquer espaço */
-        [data-testid="stAppViewContainer"] {
-            background-color: #fcf5ec !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            width: 100% !important;
-        }
-        
-        /* Ajuste do iframe para ocupar tela toda */
+        /* Ajuste do iframe */
         iframe {
             width: 100% !important;
             height: 100vh !important;
             min-height: 100vh !important;
-            margin: 0 !important;
-            padding: 0 !important;
             border: none !important;
         }
         
-        /* Zoom fixo */
+        /* Zoom */
         body {
             zoom: 0.75;
             -moz-transform: scale(0.75);
             -moz-transform-origin: 0 0;
-            overflow: hidden;
-            margin: 0 !important;
-            padding: 0 !important;
-            background-color: #fcf5ec !important;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
         
-        /* Remove scroll do body */
-        html, body {
-            overflow: hidden;
-            height: 100%;
-        }
-        
-        /* Garante que o container do app ocupe tudo */
-        .stApp > div {
-            width: 100% !important;
-            height: 100% !important;
+        /* Remove espaços extras */
+        .main {
+            margin-bottom: -100px !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -147,7 +159,7 @@ html_content = load_html()
 if html_content:
     st.components.v1.html(
         html_content, 
-        height=800, 
+        height=900, 
         scrolling=True,
         width=None
     )
